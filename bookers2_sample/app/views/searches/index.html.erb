@@ -1,0 +1,16 @@
+<div class="col-md-3">
+	<%= render 'users/info', user: current_user %>
+	<div class="mt-4">
+		<h2>New book</h2>
+		<%= render 'books/form', book: @book %>
+	</div>
+</div>
+
+<div class="col-md-8 offset-md-1">
+  <h2><%= @model %> search for ’<%= @word %>’</h2>
+  <% if @model == 'Book' %>
+    <%= render 'books/index', books: @results %>
+  <% else %>
+    <%= render 'users/index', users: @results %>
+  <% end %>
+</div>

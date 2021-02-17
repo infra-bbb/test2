@@ -1,0 +1,10 @@
+<% if obj.errors.any? %>
+  <div class="alert alert-danger">
+  <p style="color: red;"><i class="fas fa-exclamation-triangle 2x"></i> <strong><%= obj.errors.count %> errors prohibited this <%= obj.class.name %> from being saved:</strong></p>
+    <ul style="color: red;">
+      <% obj.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

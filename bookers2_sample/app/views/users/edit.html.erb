@@ -1,0 +1,21 @@
+<div class="col-md-4 mx-auto">
+  <h2>User info</h2>
+  <%= form_with model: @user, local: true do |f| %>
+    <%= render 'layouts/error_messages', obj: @user %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control form-control-sm' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :profile_image %>
+      <%= f.attachment_field :profile_image, class: 'form-control-file' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :introduction %>
+      <%= f.text_area :introduction, class: 'form-control form-control-sm' %>
+    </div>
+    <div class="form-group">
+      <%= f.submit 'Update User', class: 'btn btn-sm btn-block btn-secondary' %>
+    </div>
+  <% end %>
+</div>

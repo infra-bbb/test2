@@ -1,0 +1,13 @@
+<%= form_with model: book, local: true do |f| %>
+  <%= render 'layouts/error_messages', obj: book %>
+  <div class="form-group">
+    <%= f.label :title %><br />
+    <%= f.text_field :title, class: 'form-control form-control-sm' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :body %><br />
+    <%= f.text_area :body, class: 'form-control form-control-sm' %>
+  </div>
+  <% btn_name='Create Book' if btn_name.nil? %>
+  <%= f.submit btn_name, class: 'btn btn-sm btn-block btn-info' %>
+<% end %>

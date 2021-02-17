@@ -1,0 +1,25 @@
+<table class="table">
+    <thead>
+      <th>image</th>
+      <th>name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% users.each do |user| %>
+        <tr>
+          <td>
+            <%= link_to user_path(user) do %>
+              <%= attachment_image_tag user, :profile_image, size: '40x40', fallback: 'no_image.png' %></td>
+            <% end %>
+          <td><%= user.name %></td>
+          <td>フォロー数: <%= user.followings.count %></td>
+          <td>フォロワー数: <%= user.followers.count %></td>
+          <td><%= render 'relationships/follow_button', user: user %></td>
+          <td><%= link_to 'Show', user_path(user) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

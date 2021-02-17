@@ -1,0 +1,66 @@
+<div class="col-md-3">
+	<%= render 'users/info', user: @user %>
+	<div class="mt-4">
+		<h2>New book</h2>
+		<%= render 'books/form', book: @new_book %>
+	</div>
+</div>
+
+<div class="col-md-8 offset-md-1">
+  <h2>Book detail</h2>
+  <table class="table table-borderless">
+    <tbody>
+      <tr>
+      <td>
+        <%= link_to user_path(@user) do %>
+          <%= attachment_image_tag @user, :profile_image, size: '40x40', fallback: 'no_image.png' %><br />
+          <%= @user.name %>
+        <% end %>
+      </td>
+      <td><%= link_to  @book.title, book_path(@book) %></td>
+      <td><%= @book.body %></td>
+      <td><%= render 'favorites/button', user: current_user, book: @book %></td>
+      <td>コメント数: <%= @book.comments.count %></td>
+      <% if @user == current_user %>
+        <td><%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-sm btn-warning' %></td>
+        <td><%= link_to 'Destroy', book_path(@book), method: :delete, 'data-confirm' => '本当に削除しますか?', class: 'btn btn-sm btn-danger' %></td>
+      <% end %>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Comments</h3>
+  <div class="mb-4">
+    <table class="table table-borderless">
+      <tbody>
+        <% @book.comments.each do |comment| %>
+          <tr>
+            <td>
+              <%= link_to user_path(comment.user) do %>
+                <%= attachment_image_tag comment.user, :profile_image, size: '40x40', fallback: 'no_image.png' %><br />
+                <%= comment.user.name %>
+              <% end %>
+            </td>
+            <td>
+            <span class='text-muted small'><%= comment.created_at.to_s(:datetime_jp) %></span><br />
+              <%= comment.body %>
+            </td>
+            <% if comment.user == current_user %>
+              <td><%= link_to 'Destroy', comment_path(comment), method: :delete, class: 'btn btn-sm btn-danger' %></td>
+            <% else %>
+              <td></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= form_with model: @comment, local: true do |f| %>
+    <%= render 'layouts/error_messages', obj: @comment %>
+    <div class="form-group">
+      <%= f.text_area :body, class: 'form-control' %>
+    </div>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :book_id, value: @book.id %>
+    <%= f.submit 'Submit', class: 'btn btn-sm btn-info' %>
+  <% end %>
+</div>

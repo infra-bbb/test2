@@ -1,0 +1,5 @@
+<div class="col-md-4 mx-auto">
+	<h2>Editing Book</h2>
+  <%= render 'books/form', book: @book, btn_name: 'Update Book' %>
+	<p><%= link_to 'Show', book_path(@book) %> | <%= link_to 'Back', books_path %></p>
+</div>
